@@ -1,0 +1,460 @@
+..<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SuperCar Dealership offers quality used and new cars at affordable prices. Book a test drive today or browse our full inventory online.">
+<meta name="keywords" content="car dealership, used cars, buy cars, test drive, auto sales">
+<meta name="author" content="SuperCar Dealership">
+<title>Dannymoore Autos Ltd</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+<div class="logo"><img src="Images/carLogo.png" alt=""></div>
+
+<div class="nav-links" id="navLinks">
+<a href="#">Home</a>
+<a href="#inventory">Inventory</a>
+<a href="#financing">Financing</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
+<div class="burger" id="burger">
+<div></div>
+<div></div>
+<div></div>
+</div>
+</nav>
+
+<!-- HERO -->
+<header style="padding:60px 20px;">
+  <div class="hero-content">
+    <h1>Book Your Test Drive <br>in 60 Seconds</h1>
+    <p>Drive Home Today. Fast Approval. No Pressure Sales.</p>
+   <div class="hero-buttons">
+  <a href="#contact" class="btn">Book Test Drive</a>
+
+</a>
+</div>
+    <p class="fast-response">⚡ We respond within 5 minutes during business hours.</p>
+    
+  </div>
+</header>
+
+<div style="background:#fff;padding:15px;text-align:center;font-weight:600;">
+✔ Fast Approval  ✔ All Credit Accepted  ✔ No Hidden Fees  ✔ 500+ Cars Sold
+</div>
+
+<!-- FEATURED INVENTORY -->
+<section class="container hidden" id="inventory">
+<h2 class="section-title">Featured Inventory</h2>
+<div class="cars">
+<div class="car-card">
+<img src="Images/Lexus Rx 350 1.jpg">
+<div class="car-card-content">
+<h3>LEXUS RX350 2012 [full option]</h3>
+<p>N21.5m</p>
+<a href="#Lexus RX 350" class="btn" 
+onclick="selectVehicle('Lexus RX350 2012 full option')">
+Book Test Drive
+</a>
+</div>
+</div>
+
+<div class="car-card">
+    <div class="badge">Only 2 Left</div>
+<img src="Images/Toyota Avalon 1.jpg">
+<div class="car-card-content">
+<h3> 2015 Toyota Avalon [Limited]</h3>
+<p>N19.5m</p>
+<a href="#contact" class="btn" 
+onclick="selectVehicle('2015 Toyota Avalon LTD')">
+Book Test Drive
+</a>
+</div>
+</div>
+
+<div class="car-card">
+<img src="Images/Mecerdes glc 300 1.jpg">
+<div class="car-card-content">
+<h3> 2016 Mercedes GLC 300</h3>
+<p>N30m only</p>
+<a href="#contact" class="btn" 
+onclick="selectVehicle('2016 Mercedes Benz GLC 300')">
+Book Test Drive
+</a>
+</div>
+</div>
+</div>
+</section>
+
+  <section class="brand-section">
+  <h2>Select Brand</h2>
+  <div class="brand-buttons">
+    <button onclick="filterCars('Toyota')"><img src="Images/Toyota.png"> </button>
+    <button onclick="filterCars('Lexus')"><img src="Images/Lexus.png"></button>
+    <button onclick="filterCars('Ford')"><img src="Images/ford.png"></button>
+    <button onclick="filterCars('Honda')"><img src="Images/honda.png"></button>
+    <button onclick="filterCars('Mercedes Benz')"><img src="Images/Mercedes .png"></button>
+    <button onclick="filterCars('All')">All</button>
+  </div>
+</section>
+
+<section class="inventory-section">
+<h2>Available Vehicles</h2>
+  <div id="car-list" class="car-grid"></div>
+</section>
+<div id="carModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+<section class="info-section hidden">
+  <div class="container">
+    <h2 class="section-title">Trusted by 50+ Happy Drivers</h2>
+
+    <div class="testimonial-grid">
+
+      <div class="testimonial-card">
+        <img src="Images/man3.jpg" alt="Customer">
+        <p>"Smooth process. Got my car same day without stress."</p>
+        <h4>Chinedu Okafor</h4>
+        <span class="stars">★★★★★</span>
+      </div>
+
+      <div class="testimonial-card">
+        <img src="Images/person2.jpg" alt="Customer">
+        <p>"No hidden fees. Everything was clear and fast."</p>
+        <h4>Amina Bello</h4>
+        <span class="stars">★★★★★</span>
+      </div>
+
+      <div class="testimonial-card">
+        <img src="Images/man2.jpg" alt="Customer">
+        <p>"Booked online and they called me immediately. Very professional."</p>
+        <h4>Tunde Adeyemi</h4>
+        <span class="stars">★★★★★</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <h2>Book Your Test Drive</h2>
+  <form id="testDriveForm">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+    <input type="text" name="vehicle" id="vehicleInput" placeholder="Vehicle Model" readonly>
+    <button type="submit" class="luxury-btn">Submit Request</button>
+  </form>
+  <p id="formMessage"></p>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="info-section hidden">
+  <div class="container">
+    <h2 class="section-title">Why Choose Us</h2>
+
+    <div class="why-grid">
+
+      <div class="why-card">
+        <img src="Images/fast.png" alt="Fast Response">
+        <div class="why-content">
+          <i class="fas fa-bolt"></i>
+          <h3>Fast Response</h3>
+          <p>We respond within minutes. No delays. No chasing.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <img src="Images/drive home safe.png" alt="Drive Home Same Day">
+        <div class="why-content">
+          <i class="fas fa-car"></i>
+          <h3>Drive Same Day</h3>
+          <p>Pick a car, complete payment, and drive off immediately.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <img src="Images/flexible.png" alt="Flexible Financing">
+        <div class="why-content">
+          <i class="fas fa-hand-holding-usd"></i>
+          <h3>Flexible Payment</h3>
+          <p>We offer options that fit your budget and situation.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINANCING -->
+<section class="info-section hidden" id="financing">
+  <div class="container">
+    <h2 class="section-title">Flexible Payment Options</h2>
+
+    <p class="financing-intro">
+      No stress. No long process. Get your car with a payment plan that works for you.
+    </p>
+
+    <div class="finance-grid">
+
+      <div class="finance-card">
+        <i class="fas fa-check-circle"></i>
+        <h3>All Credit Accepted</h3>
+        <p>Whether your credit is good or not, we’ll find a solution for you.</p>
+      </div>
+
+      <div class="finance-card">
+        <i class="fas fa-money-bill-wave"></i>
+        <h3>Flexible Payment Plans</h3>
+        <p>Spread your payments in a way that fits your income.</p>
+      </div>
+
+      <div class="finance-card">
+        <i class="fas fa-clock"></i>
+        <h3>Fast Approval</h3>
+        <p>Get approved quickly and drive your car without delays.</p>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="finance-cta">
+      <a href="#contact" class="btn">Check Your Eligibility</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="info-section">
+  <div class="container">
+
+    <h2 class="section-title">About Dannymoore Autos</h2>
+
+    <div class="about-wrapper">
+
+      <div class="about-text">
+        <p>
+          At Dannymoore Autos, we help you find the right car without stress, confusion, or hidden charges. 
+          We specialize in quality pre-owned vehicles that are fully inspected and ready for the road.
+        </p>
+
+        <p>
+          Based in Lagos, we’ve built our reputation on trust, speed, and transparency. Whether you're buying your first car or upgrading, our goal is simple — get you behind the wheel quickly and confidently.
+        </p>
+
+        <p>
+          No pressure. No unnecessary delays. Just straightforward deals and real value.
+        </p>
+      </div>
+
+<div class="about-video">
+  <video autoplay muted loop playsinline poster="https://res.cloudinary.com/your-cloud-name/image/upload/thumbnail.jpg">
+    <source src="https://res.cloudinary.com/du6e7pzwg/video/upload/v1774285888/VID-20260322-WA0005_de53rd.mp4" type="video/mp4">
+  </video>
+</div>
+
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="container hidden">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+
+  <div class="faq">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Do you allow inspection before payment?
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="faq-answer">
+        <p>Yes. You can inspect any vehicle before making payment. We believe in full transparency.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        How fast can I get my car?
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="faq-answer">
+        <p>Most cars are available for same-day pickup after payment is confirmed.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Do you accept installment payments?
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="faq-answer">
+        <p>Yes, we offer flexible payment options depending on your situation.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Are your cars verified?
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="faq-answer">
+        <p>All our vehicles are inspected and verified before being listed for sale.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="container hidden" id="contact">
+<h2 class="section-title">Book Your Test Drive Now</h2>
+
+<p style="text-align:center; margin-bottom:20px;">
+Limited slots available this week. Secure yours now.
+</p>
+
+<section class="hero-slider">
+
+  <div class="slide active" style="background-image: url('Images/AMG.png');"></div>
+  <div class="slide" style="background-image: url('Images/g\ wagon.png');"></div>
+  <div class="slide" style="background-image: url('Images/rolls\ royce.png');"></div>
+
+  <div class="slider-overlay"></div>
+
+  <div class="slider-content">
+    <h2>Vehicles Sell Fast in This Market</h2>
+    <p>
+      Don’t lose your preferred model to another buyer. 
+      Serious buyers are booking daily.
+    </p>
+
+    <a href="#contact" class="btn">Reserve My Test Drive</a>
+  </div>
+
+</section>
+
+
+</section>
+
+<section class="info-section">
+  <div class="container">
+    <h2 class="section-title">Visit Our Showroom</h2>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt fa-lg"></i>
+        <h3>Address</h3>
+        <p>116 First Avanue Festac Town <br>Lagos</p>
+      </div>
+
+      <div class="info-item">
+        <i class="fas fa-phone fa-lg"fas fa-map-marker-alt fa-lg"></i>
+        <h3>Phone</h3>
+        <p>(+234) 8166-952-640</p>
+      </div>
+
+      <div class="info-item">
+        <i class="fas fa-clock fa-lg"></i>
+        <h3>Business Hours</h3>
+        <p>Mon–Sat: 9AM – 7PM<br>Sunday: Closed</p>
+      </div>
+    </div>
+
+    <!-- GOOGLE MAP -->
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps?q=116+First+Avenue+Festac+Town+Lagos&output=embed"
+        width="100%" 
+        height="350" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- BRAND -->
+    <div class="footer-col">
+      <div class="logo2"><img src="Images/carLogo.png" alt=""></div>
+      <p>Quality vehicles. Transparent pricing. Fast delivery across Nigeria.</p>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#inventory">Inventory</a>
+      <a href="#financing">Financing</a>
+      <a href="#contact">Book Test Drive</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p><i class="fas fa-map-marker-alt"></i> 116 First Avanue Festac Town, Lagos State</p>
+      <p><i class="fas fa-phone"></i> +234 816 695 2640</p>
+      <p><i class="fas fa-envelope"></i> sales@supercar.com</p>
+      <a href="https://l.instagram.com/?u=https%3A%2F%2Fwww.tiktok.com%2F%40dannymoore_autos%3F_t%3DZS-8yjgAwxJGZ0%26_r%3D1%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnFbxux0gjgD46OJ0Mh0KRO3setTf-ze3BWZ_SVBHMHWLA1c9HflFtsmjIrxw_aem_cqV9597WgvxsOybQ0Q6r2g&e=AT7BX2HleRzPO-Nz0cOV-gx7gvl-ZJsdSz7YVah1JHj6GO2FpemNjPDKgzxBfu0r27_wLVwUUShfMbVu-o7Nx8z9iV8CGFwtZhs-CpvJPQ"><p><i class="fa-brands fa-instagram"></i>  dannymoore_autos</p></a>
+      <p></p>
+    </div>
+
+    <!-- WHATSAPP CTA -->
+    <div class="footer-col">
+      <h4>Need Help Fast?</h4>
+      <a href="https://wa.me/2348166952640" target="_blank" class="footer-whatsapp">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <p>&copy; 2026 SuperCar Dealership | All Rights Reserved</p>
+  </div>
+</footer>
+<div class="mobile-cta">
+  <a href="tel:+2348166952640">
+    <!-- Phone icon SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16">
+      <path d="M3.654 1.328a.678.678 0 0 1 .737-.14l2.897 1.16c.329.132.507.486.454.844l-.547 3.284a.678.678 0 0 1-.607.566l-1.292.172a11.075 11.075 0 0 0 4.516 4.516l.172-1.292a.678.678 0 0 1 .566-.607l3.284-.547a.678.678 0 0 1 .844.454l1.16 2.897a.678.678 0 0 1-.14.737l-2.1 2.1a1.745 1.745 0 0 1-1.82.44c-2.11-.678-4.314-2.432-6.2-4.318-1.886-1.886-3.64-4.09-4.318-6.2a1.745 1.745 0 0 1 .44-1.82l2.1-2.1z"/>
+    </svg>
+    Call Sales
+  </a>
+  <a href="#contact">
+    <!-- Car icon SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16">
+      <path d="M4 9.5A1.5 1.5 0 1 0 5.5 11 1.5 1.5 0 0 0 4 9.5zm8 0A1.5 1.5 0 1 0 13.5 11 1.5 1.5 0 0 0 12 9.5zM0 5.5A2.5 2.5 0 0 1 2.5 3h11A2.5 2.5 0 0 1 16 5.5V10a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 10V5.5z"/>
+    </svg>
+    Book Test Drive
+  </a>
+</div>
+<!-- Vehicle Modal -->
+
+</div>
+<script src="script.js"></script>
+
+<a href="https://wa.me/2348166952640" class="whatsapp-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+</body>
+</html>
