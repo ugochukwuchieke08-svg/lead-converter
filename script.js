@@ -78,7 +78,7 @@ const cars = [
     transmission: "Automatic",
     fuel: "Petrol",
     engine: "V6",
-    interior: "Ambient Lightingd, Hud Display, 21inches Alloys",
+    interior: "Ambient Lightings, Hud Display, 21 inches Alloys",
     images: ["Images/gle 350 1.jpg","Images/gle1.jpg","Images/gle2.jpg","Images/gle3.jpg","Images/gle4.jpg","Images/gle5.jpg","Images/gle6.jpg"]
   },
   {
@@ -90,7 +90,7 @@ const cars = [
     transmission: "Automatic",
     fuel: "Petrol",
     engine: "untouched",
-    interior: "Ambient Lightingd, Smart Screen",
+    interior: "Ambient Lightings, Smart Screen",
     images: ["Images/ml 350.jpg","Images/ml1.jpg","Images/ml2.jpg","Images/ml3.jpg","Images/ml4.jpg","Images/ml5.jpg"]
   },
   {
@@ -199,7 +199,7 @@ const cars = [
     fuel: "Petrol",
     engine: "2.5L",
     interior: "3 row seats, Long screen, Hud display, Eco control, Parking sensor,Lane assist, Automatic folding mirror,AC chilling, Two-tone interior, Extremely clean",
-    images: ["Images/Lexus RX 350L.jpg"]
+    images: ["Images/Lexus RX 350L.jpg","Images/l1.jpg","Images/l2.jpg","Images/l3.jpg","Images/l4.jpg","Images/l5.jpg","Images/l6.jpg","Images/l7.jpg","Images/l8.jpg",]
   },
   {
     brand: "Honda",
@@ -219,7 +219,7 @@ const cars = [
     fuel: "Petrol",
     engine: "V6",
     interior: "Thumb start, Power boot, Eco assist, Sunroof, Navigation DVD screen display, Mark levission speakers, Paddle shifters, Chilling AC,3row seats",
-    images: ["Images/lexus es 350 2013.jpg"]
+    images: ["Images/lexus es 350 2013.jpg","Images/3501.jpg","Images/3502.jpg","Images/3503.jpg","Images/3504.jpg","Images/3505.jpg","Images/3506.jpg","Images/3507.jpg",]
   },
   {
     brand: "Lexus",
@@ -479,7 +479,7 @@ function openModal(car) {
   <div><strong>Transmission</strong><span>${car.transmission || "N/A"}</span></div>
   <div><strong>Fuel Type</strong><span>${car.fuel || "N/A"}</span></div>
   <div><strong>Engine</strong><span>${car.engine || "N/A"}</span></div>
-  <div><strong>Interior</strong><span>${car.interior || "N/A"}</span></div>
+  <div><strong>Specs</strong><span>${car.interior || "N/A"}</span></div>
 </div>
       <div class="urgency-box">
         <p>✔ Verified Vehicle</p>
