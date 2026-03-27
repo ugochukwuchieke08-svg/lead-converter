@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload a Car</title>
+
+ <style>
+  * {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background: #0f172a;
+    padding: 20px;
+  }
+
+  .modal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background: #ffffff;
+    padding: 25px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin: 40px 0;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111827;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  input {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    outline: none;
+    transition: 0.2s;
+  }
+
+  input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  input[type="file"] {
+    padding: 8px;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #1d4ed8;
+  }
+
+  #uploadMessage {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+  }
+</style>
+ 
+</head>
+<body>
+
+<div id="uploadModal" class="modal">
+  <div class="modal-content">
+    <h2>Upload a Car</h2>
+    <form id="carUploadForm">
+      <label>Brand:</label>
+      <input type="text" name="brand" required>
+
+      <label>Model:</label>
+      <input type="text" name="model" required>
+
+      <label>Year:</label>
+      <input type="number" name="year" required>
+
+      <label>Price:</label>
+      <input type="number" name="price" required>
+
+      <label>Mileage:</label>
+      <input type="text" name="mileage">
+
+      <label>Transmission:</label>
+      <input type="text" name="transmission">
+
+      <label>Fuel Type:</label>
+      <input type="text" name="fuel">
+
+      <label>Engine:</label>
+      <input type="text" name="engine">
+
+      <label>Specs:</label>
+      <input type="text" name="Specs">
+
+      <label>Car Images:</label>
+      <input type="file" id="carImages" name="images" accept="image/*" multiple required>
+
+      <button type="submit">Upload Car</button>
+    </form>
+    <div id="uploadMessage"></div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<div id="carsContainer"></div>
+<script>
+  // ======= FIREBASE CONFIG =======
+  const firebaseConfig = {
+    apiKey: "AIzaSyBry7dNkfXeJJEyuuSTBwM4mWX2ycXYynM",
+    authDomain: "dannymoore-autos-ltd.firebaseapp.com",
+    projectId: "dannymoore-autos-ltd",
+    storageBucket: "dannymoore-autos-ltd.firebasestorage.app",
+    messagingSenderId: "1027781605759",
+    appId: "1:1027781605759:web:4c87e5f7b55eaad4d6c24a"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // ======= UPLOAD FORM HANDLER =======
+  const uploadForm = document.getElementById("carUploadForm");
+  const uploadMessage = document.getElementById("uploadMessage");
+  const carImagesInput = document.getElementById("carImages");
+
+  uploadForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(uploadForm);
+    const carData = {
+      brand: formData.get("brand"),
+      model: formData.get("model"),
+      year: Number(formData.get("year")),
+      price: Number(formData.get("price")),
+      mileage: formData.get("mileage"),
+      transmission: formData.get("transmission"),
+      fuel: formData.get("fuel"),
+      engine: formData.get("engine"),
+      interior: formData.get("Specs"),
+      images: []
+    };
+
+    const files = carImagesInput.files;
+    if (!files.length) {
+      uploadMessage.style.color = "red";
+      uploadMessage.innerText = "Please select at least one image.";
+      return;
+    }
+
+    uploadMessage.style.color = "black";
+    uploadMessage.innerText = "Uploading images...";
+
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const fileData = new FormData();
+        fileData.append("file", files[i]);
+        fileData.append("upload_preset", "client upload"); // your preset
+
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/du6e7pzwg/image/upload",
+          { method: "POST", body: fileData }
+        );
+
+        const data = await res.json();
+        if (!data.secure_url) throw new Error("Image upload failed");
+        carData.images.push(data.secure_url);
+      }
+
+      await db.collection("cars").add(carData);
+
+      uploadMessage.style.color = "green";
+      uploadMessage.innerText = "Car uploaded successfully!";
+      uploadForm.reset();
+
+      // refresh cars display
+      fetchCars();
+    } catch (err) {
+      console.error(err);
+      uploadMessage.style.color = "red";
+      uploadMessage.innerText = "Upload failed. Check console for errors.";
+    }
+  });
+
+  // ======= DISPLAY CARS =======
+  async function fetchCars() {
+    const carsSnapshot = await db.collection("cars").get();
+    const cars = carsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderCars(cars);
+  }
+
+  function renderCars(cars) {
+    const container = document.getElementById("carsContainer");
+    container.innerHTML = "";
+
+    cars.forEach(car => {
+      const carDiv = document.createElement("div");
+      carDiv.classList.add("car-card");
+
+      // Images container with horizontal scroll
+      const imgContainer = document.createElement("div");
+      imgContainer.style.display = "flex";
+      imgContainer.style.overflowX = "auto";
+      imgContainer.style.gap = "10px";
+
+      car.images.forEach(imgUrl => {
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.style.width = "200px";
+        img.style.height = "120px";
+        img.style.objectFit = "cover";
+        imgContainer.appendChild(img);
+      });
+
+      carDiv.appendChild(imgContainer);
+
+      // Car details
+      const details = document.createElement("p");
+      details.innerText = `${car.brand} ${car.model} - $${car.price}`;
+      carDiv.appendChild(details);
+
+      container.appendChild(carDiv);
+    });
+  }
+
+  // initial fetch
+  fetchCars();
+</script>
+
+</body>
+</html>
