@@ -470,6 +470,7 @@ if (uploadForm) {
 
 // ====== DISPLAY CARS ======
 let showAll = false;
+
 function displayCars(carArray) {
   const carList = document.getElementById("car-list");
   if (!carList) return;
@@ -498,6 +499,7 @@ function displayCars(carArray) {
     carList.appendChild(btn);
   }
 }
+
 
 // ====== FILTER CARS ======
 function filterCars(brand) {
