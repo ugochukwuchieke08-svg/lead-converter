@@ -53,6 +53,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("testDriveForm");
   if (form) form.addEventListener("submit", handleFormSubmit);
 
+  const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().trim();
+
+    const filtered = allCars.filter(car =>
+      car.brand.toLowerCase().includes(query) ||
+      car.model.toLowerCase().includes(query)
+    );
+
+    showAll = true;
+    displayCars(filtered);
+  });
+}
+
   // ===== FETCH CARS IF CAR LIST EXISTS =====
   const carList = document.getElementById("car-list");
   if (carList) fetchAdditionalCars();
