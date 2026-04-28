@@ -311,18 +311,7 @@ const cars = [
     interior: "Keyless, Reverse camera, JBL speakers,Power boot, Ventilated leather seats, 3 row seats",
     images: ["Images/new1.jpg","Images/new2.jpg","Images/new3.jpg","Images/new4.jpg","Images/new5.jpg","Images/new6.jpg","Images/new7.jpg","Images/new8.jpg","Images/new9.jpg"]
   },
-  {
-    brand: "Lexus",
-    model: "ES 350",
-    year: 2010,
-    price: 13500000,
-    mileage: "82,210 miles",
-    transmission: "Automatic",
-    fuel: "Petrol",
-    engine: "V6",
-    interior: "Thumb start Proximity/parking sensor,",
-    images: ["Images/new10.jpg","Images/new11.jpg","Images/new12.jpg","Images/new13.jpg","Images/new14.jpg","Images/new15.jpg","Images/new16.jpg","Images/new17.jpg"]
-  },
+  
   {
     brand: "Ford",
     model: "Escape Titanum",
@@ -631,3 +620,29 @@ if (slides.length) {
     slides[index].classList.add("active");
   }, 4000);
 }
+
+document.querySelectorAll('.car-slider').forEach(slider => {
+  const images = slider.querySelectorAll('img');
+  let index = 0;
+
+  const showImage = (i) => {
+    images.forEach(img => img.classList.remove('active'));
+    images[i].classList.add('active');
+  };
+
+  slider.querySelector('.next').onclick = () => {
+    index = (index + 1) % images.length;
+    showImage(index);
+  };
+
+  slider.querySelector('.prev').onclick = () => {
+    index = (index - 1 + images.length) % images.length;
+    showImage(index);
+  };
+
+  // Auto slide (optional but adds polish)
+  setInterval(() => {
+    index = (index + 1) % images.length;
+    showImage(index);
+  }, 1500);
+});
