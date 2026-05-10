@@ -77,18 +77,6 @@ if (searchInput) {
 // ====== CAR DATA ======
 const cars = [
   {
-    brand: "Toyota",
-    model: "Camry (Sports Edition)",
-    year: 2013,
-    price: 13500000,
-    mileage: "91,654 km",
-    transmission: "Automatic",
-    fuel: "Petrol",
-    engine: "2.5L",
-    interior: "Gray on black interior, Chilling AC, Sports stering control ",
-    images: ["Images/toyota camry.jpg","Images/camry1.jpg","Images/camry2.jpg","Images/camry3.jpg","Images/camry4.jpg","Images/camry5.jpg","Images/camry6.jpg"]
-  },
-  {
     brand: "Mercedes Benz",
     model: "GLE 450",
     year: 2020,
