@@ -276,3 +276,6 @@ document.querySelectorAll('.car-slider').forEach(slider => {
     showImage(index);
   }, 1500);
 });
+
+// Calculator
+

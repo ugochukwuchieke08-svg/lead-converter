@@ -413,13 +413,62 @@ async function loadCar() {
             <p>${car.interior || "N/A"}</p>
           </div>
 
-          <a
-            href="https://wa.me/2348166952640"
-            class="btn"
-            target="_blank"
-          >
-            Book Test Drive
-          </a>
+         <div class="finance-calculator">
+
+  <h2>Finance Calculator</h2>
+
+  <div class="finance-field">
+    <label>Vehicle Price</label>
+    <input
+      type="text"
+      value="${formatPrice(car.price)}"
+      readonly
+    >
+  </div>
+
+  <div class="finance-field">
+    <label>Down Payment</label>
+    <input
+      type="number"
+      id="downPayment"
+      placeholder="Enter your down payment"
+    >
+  </div>
+
+  <div class="finance-field">
+    <label>Repayment Period</label>
+    <select id="months">
+      <option value="6">6 Months</option>
+      <option value="12">12 Months</option>
+      <option value="18">18 Months</option>
+      <option value="24">24 Months</option>
+      <option value="36">36 Months</option>
+    </select>
+  </div>
+
+ <button
+    class="btn"
+    onclick="calculatePayment(${car.price})">
+    Calculate
+</button>
+
+  <div class="finance-result">
+    <p>Balance</p>
+    <h3 id="balance">₦0</h3>
+
+    <p>Monthly Payment</p>
+    <h2 id="monthlyPayment">₦0/month</h2>
+  </div>
+
+</div>
+
+<a
+  href="https://wa.me/2348166952640"
+  class="btn"
+  target="_blank"
+>
+  Book Test Drive
+</a>
 
         </div>
 
@@ -433,11 +482,75 @@ async function loadCar() {
 
     document.getElementById("carDetails").innerHTML =
       "<h1 style='padding:40px;'>Error loading car</h1>";
+
+      const calculateBtn = document.getElementById("calculateBtn");
+    console.log(calculateBtn);
+calculateBtn.addEventListener("click", () => {
+
+  const down =
+    Number(document.getElementById("downPayment").value);
+
+  const months =
+    Number(document.getElementById("months").value);
+
+  if (down < 0) {
+    alert("Enter a valid down payment.");
+    return;
+  }
+
+  if (down >= car.price) {
+    alert("Down payment cannot be greater than the vehicle price.");
+    return;
+  }
+
+  const balance = car.price - down;
+  const monthly = balance / months;
+
+  document.getElementById("balance").innerText =
+    formatPrice(balance);
+
+  document.getElementById("monthlyPayment").innerText =
+    `${formatPrice(monthly)} / month`;
+
+});
   }
 }
+
+
 
 function changeImage(img){
   document.getElementById("mainImage").src = img;
 }
 
 loadCar();
+
+function calculatePayment(price){
+
+    const down = Number(
+        document.getElementById("downPayment").value
+    );
+
+    const months = Number(
+        document.getElementById("months").value
+    );
+
+    if(!down || down < 0){
+        alert("Enter a valid down payment.");
+        return;
+    }
+
+    if(down >= price){
+        alert("Down payment cannot exceed vehicle price.");
+        return;
+    }
+
+    const balance = price - down;
+
+    const monthly = balance / months;
+
+    document.getElementById("balance").innerText =
+        formatPrice(balance);
+
+    document.getElementById("monthlyPayment").innerText =
+        `${formatPrice(monthly)} / month`;
+}
