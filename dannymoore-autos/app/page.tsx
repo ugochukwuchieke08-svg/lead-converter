@@ -359,7 +359,7 @@ export default function Home() {
           Speak with DannyMoore Autos today and book a test drive.
         </p>
 
-        <a href="https://wa.me/" className="primaryButton">
+        <a href="https://wa.me/2348166952640" className="primaryButton">
           Contact Us
           <ArrowRight size={20} />
         </a>

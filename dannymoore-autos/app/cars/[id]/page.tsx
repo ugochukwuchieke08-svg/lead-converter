@@ -225,7 +225,7 @@ export default function CarDetailsPage() {
             {/* ACTIONS */}
             <div className="vehicleActions">
               <a
-                href={`https://wa.me/?text=${whatsappMessage}`}
+                href="https://wa.me/2348166952640"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="vehicleWhatsapp"
